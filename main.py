@@ -54,7 +54,10 @@ async def translate_text(form_data: LibreTranslateTranslateForm):
         input_ids = tokenizer(text, return_tensors="pt").input_ids.to(model.device)
         outputs = model.generate(input_ids=input_ids)
 
-        return {"translation": tokenizer.decode(outputs[0], skip_special_tokens=True)}
+        translation = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        print(translation)
+
+        return {"translatedText": translation}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
